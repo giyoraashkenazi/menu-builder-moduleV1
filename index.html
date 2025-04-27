@@ -1,150 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🧠 Menu Concept Builder</title>
-
-  <!-- 1. קישור ל-CSS חיצוני -->
-  <link rel="stylesheet" href="css2/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Menu Concept Builder – Full</title>
+  <style>
+    body { font-family: sans-serif; margin:20px; color:#333 }
+    h1,h2,h3 { margin:.5em 0 }
+    .tabs { margin-bottom:10px }
+    .tabs button {
+      padding:8px 12px; margin-right:4px;
+      border:1px solid #ccc; background:#f1f1f1; cursor:pointer;
+    }
+    .tabs button.active { background:#007bff; color:#fff }
+    .tab-content { display:none; border:1px solid #ccc; padding:12px; }
+    .tab-content.active { display:block }
+    .nav { margin-top:12px }
+    .nav button { padding:6px 10px; margin-right:4px }
+    .nav button:disabled { opacity:.5; cursor:not-allowed }
+    .dishes-container { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
+    .dish-card {
+      width:140px; border:1px solid #aaa; padding:8px;
+      cursor:pointer; background:#fff; border-radius:4px;
+    }
+    .dish-card.selected {
+      border-color:#007bff; background:#e7f1ff;
+    }
+    .checkbox-group { display:flex; flex-wrap:wrap; gap:12px; margin-top:6px }
+    .feedback { margin-top:12px; padding:8px; 
+      border-left:4px solid #007bff; background:#f0f8ff;
+    }
+    .feedback.warning {
+      border-color:#dc3545; background:#fff0f0;
+    }
+  </style>
 </head>
-
 <body>
-  <!-- 2. כל ה-HTML של ה-Menu Concept Builder -->
-  <div class="container">
-    <header>
-      <h1>🧠 Menu Concept Builder</h1>
-      <p>Create a cohesive 5-dish menu by selecting items that match your
-         restaurant concept, target audience, and pricing strategy.</p>
-    </header>
 
-    <div class="intro">
-      <p>In the food business, a menu is much more than a list of dishes —
-         it's the <strong>strategic core</strong> of your brand,
-         customer experience, and profitability.</p>
-      <p>A well-designed menu tells your story, captures the essence of
-         your concept, and subtly guides customer choices to maximize
-         satisfaction and revenue.</p>
-    </div>
+  <h1>🧠 Menu Concept Builder – Full Version</h1>
+  <p>Create a cohesive menu by selecting items that match your concept, audience & pricing.</p>
 
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="concept">1. Define Concept</button>
-      <button class="tab-btn" data-tab="dishes">2. Select Dishes</button>
-      <button class="tab-btn" data-tab="preview">3. Preview & Feedback</button>
-    </div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab1">1. Concept</button>
+    <button class="tab-btn" data-tab="tab2">2. Dishes</button>
+    <button class="tab-btn" data-tab="tab3">3. Preview</button>
+  </div>
 
-    <!-- Tab 1: Concept -->
-    <div id="concept" class="tab-content active">
-      <h2>Define Your Restaurant Concept</h2>
-      <div class="form-group">
-        <label for="restaurant-concept">Restaurant Concept</label>
-        <select id="restaurant-concept">
+  <!-- Tab 1: Concept -->
+  <div id="tab1" class="tab-content active">
+    <h2>Define Your Concept</h2>
+    <div>
+      <label>Business Concept:
+        <select id="businessConcept">
           <option value="fine-dining">Fine Dining</option>
-          <option value="casual">Casual Dining</option>
-          <option value="fast-casual">Fast Casual</option>
-          <option value="bistro">Bistro</option>
+          <option value="casual-dining">Casual Dining</option>
+          <option value="fast-food">Fast Food</option>
+          <option value="deli">Deli</option>
           <option value="cafe">Café</option>
           <option value="food-truck">Food Truck</option>
+          <option value="bakery-patisserie">Bakery / Patisserie</option>
         </select>
+      </label>
+    </div>
+    <div style="margin-top:10px">
+      <strong>Target Audience:</strong>
+      <div class="checkbox-group" id="audienceCheckboxes">
+        <label><input type="checkbox" value="families"> Families</label>
+        <label><input type="checkbox" value="teenagers"> Teenagers</label>
+        <label><input type="checkbox" value="business"> Business</label>
+        <label><input type="checkbox" value="tourists"> Tourists</label>
+        <label><input type="checkbox" value="health-conscious"> Health-Conscious</label>
+        <label><input type="checkbox" value="kids"> Kids</label>
+        <label><input type="checkbox" value="passersby"> Passersby</label>
       </div>
-      <div class="form-group">
-        <label for="cuisine-type">Cuisine Type</label>
-        <select id="cuisine-type">
-          <option value="italian">Italian</option>
-          <option value="asian-fusion">Asian Fusion</option>
-          <option value="mediterranean">Mediterranean</option>
-          <option value="american">Modern American</option>
-          <option value="latin">Latin American</option>
-          <option value="plant-based">Plant-Based</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="target-audience">Primary Target Audience</label>
-        <select id="target-audience">
-          <option value="families">Families</option>
-          <option value="young-professionals">Young Professionals</option>
-          <option value="business">Business Clientele</option>
-          <option value="tourists">Tourists</option>
-          <option value="health-conscious">Health-Conscious Diners</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="price-strategy">Pricing Strategy</label>
-        <select id="price-strategy">
+    </div>
+    <div style="margin-top:10px">
+      <label>Pricing Strategy:
+        <select id="pricingStrategy">
           <option value="premium">Premium ($$$$)</option>
           <option value="upscale">Upscale ($$$)</option>
           <option value="moderate">Moderate ($$)</option>
-          <option value="value">Value-Oriented ($)</option>
+          <option value="value">Value ($)</option>
         </select>
-      </div>
-      <div class="nav-buttons">
-        <div></div>
-        <button class="btn" id="next-to-dishes">Next: Select Dishes</button>
-      </div>
+      </label>
     </div>
-
-    <!-- Tab 2: Dishes -->
-    <div id="dishes" class="tab-content">
-      <h2>Select Your Menu Items</h2>
-      <p>
-        Choose 5 dishes that align with your restaurant concept.
-        Selected: <span id="selected-count">0</span>/5
-      </p>
-      <div class="dishes-container" id="dishes-container"></div>
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" id="back-to-concept">Back: Concept</button>
-        <button class="btn" id="next-to-preview" disabled>Next: Preview Menu</button>
-      </div>
-    </div>
-
-    <!-- Tab 3: Preview -->
-    <div id="preview" class="tab-content">
-      <h2>Menu Preview & Feedback</h2>
-      <div class="menu-preview">
-        <div class="menu-header">
-          <h2 id="restaurant-name">Your Restaurant</h2>
-          <p id="restaurant-description"></p>
-        </div>
-        <div class="menu-section" id="menu-items"></div>
-      </div>
-
-      <h3>Menu Analysis</h3>
-      <div class="score-container">
-        <div class="score-item">
-          <div class="score-value" id="concept-score">0</div>
-          <div class="score-label">Concept Alignment</div>
-          <div class="progress-container">
-            <div class="progress-bar" id="concept-progress"></div>
-          </div>
-        </div>
-        <div class="score-item">
-          <div class="score-value" id="balance-score">0</div>
-          <div class="score-label">Menu Balance</div>
-          <div class="progress-container">
-            <div class="progress-bar" id="balance-progress"></div>
-          </div>
-        </div>
-        <div class="score-item">
-          <div class="score-value" id="profit-score">0</div>
-          <div class="score-label">Profit Potential</div>
-          <div class="progress-container">
-            <div class="progress-bar" id="profit-progress"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feedback" id="menu-feedback">
-        Select dishes to receive feedback.
-      </div>
-
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" id="back-to-dishes">Back: Edit Menu</button>
-        <button class="btn" id="start-over">Start Over</button>
-      </div>
+    <div class="nav">
+      <button id="toDishes">Next: Dishes</button>
     </div>
   </div>
 
-  <!-- 3. קישור ל-JS חיצוני -->
-  <script src="index.js"></script>
+  <!-- Tab 2: Dishes -->
+  <div id="tab2" class="tab-content">
+    <h2>Select Your Dishes (<span id="count">0</span>/10)</h2>
+
+    <div>
+      <h3>Appetizers</h3>
+      <div class="dishes-container" id="appetizer"></div>
+    </div>
+    <div>
+      <h3>Main Courses</h3>
+      <div class="dishes-container" id="main"></div>
+    </div>
+    <div>
+      <h3>Desserts</h3>
+      <div class="dishes-container" id="dessert"></div>
+    </div>
+    <div>
+      <h3>Drinks</h3>
+      <div class="dishes-container" id="drink"></div>
+    </div>
+    <div>
+      <h3>Other</h3>
+      <div class="dishes-container" id="other"></div>
+    </div>
+
+    <div class="nav">
+      <button id="backToConcept">Back</button>
+      <button id="toPreview" disabled>Next: Preview</button>
+    </div>
+  </div>
+
+  <!-- Tab 3: Preview -->
+  <div id="tab3" class="tab-content">
+    <h2>Menu Preview & Feedback</h2>
+    <div id="menuList"></div>
+    <div id="menuFeedback" class="feedback">Select 10 dishes to see your match statistic.</div>
+    <div class="nav">
+      <button id="backToDishes">Back</button>
+      <button id="startOver">Start Over</button>
+    </div>
+  </div>
+
+  <script>
+    //— Data —
+    const allDishes = [
+      // appetizers (10)
+      {id:1,  name:"Caprese Salad", desc:"Tomato & mozzarella", price:14, cat:"appetizer",
+        conceptFit:{ "fine-dining":80,"casual-dining":90,"fast-food":30,"deli":85,"cafe":85,"food-truck":60,"bakery-patisserie":50 }},
+      {id:2,  name:"Spicy Tuna Roll",desc:"Tuna, avocado", price:16,cat:"appetizer",
+        conceptFit:{ "fine-dining":75,"casual-dining":85,"fast-food":70,"deli":60,"cafe":50,"food-truck":75,"bakery-patisserie":20 }},
+      {id:3,  name:"Bruschetta",     desc:"Tomato & basil", price:12,cat:"appetizer",
+        conceptFit:{ "fine-dining":70,"casual-dining":85,"fast-food":20,"deli":75,"cafe":75,"food-truck":40,"bakery-patisserie":30 }},
+      {id:4,  name:"Nachos",         desc:"Cheese & salsa", price:13,cat:"appetizer",
+        conceptFit:{ "fine-dining":20,"casual-dining":90,"fast-food":95,"deli":50,"cafe":60,"food-truck":95,"bakery-patisserie":0 }},
+      {id:5,  name:"Chicken Wings",  desc:"Buffalo style", price:14,cat:"appetizer",
+        conceptFit:{ "fine-dining":10,"casual-dining":90,"fast-food":90,"deli":30,"cafe":50,"food-truck":90,"bakery-patisserie":10 }},
+      {id:6,  name:"Calamari",       desc:"Fried squid", price:15,cat:"appetizer",
+        conceptFit:{ "fine-dining":85,"casual-dining":80,"fast-food":20,"deli":40,"cafe":40,"food-truck":30,"bakery-patisserie":0 }},
+      {id:7,  name:"Hummus & Pita",  desc:"Chickpea dip", price:10,cat:"appetizer",
+        conceptFit:{ "fine-dining":60,"casual-dining":90,"fast-food":70,"deli":95,"cafe":90,"food-truck":85,"bakery-patisserie":30 }},
+      {id:8,  name:"Mozzarella Sticks",desc:"Fried cheese",price:9, cat:"appetizer",
+        conceptFit:{ "fine-dining":15,"casual-dining":85,"fast-food":95,"deli":50,"cafe":60,"food-truck":85,"bakery-patisserie":0 }},
+      {id:9,  name:"Soup of Day",    desc:"Seasonal",    price:8, cat:"appetizer",
+        conceptFit:{ "fine-dining":75,"casual-dining":85,"fast-food":40,"deli":80,"cafe":85,"food-truck":60,"bakery-patisserie":50 }},
+      {id:10, name:"Onion Rings",    desc:"Crispy",      price:7, cat:"appetizer",
+        conceptFit:{ "fine-dining":10,"casual-dining":80,"fast-food":95,"deli":40,"cafe":60,"food-truck":85,"bakery-patisserie":5 }},
+
+      // mains (10)
+      {id:11, name:"Truffle Risotto", desc:"Mushroom & truffle",price:24,cat:"main",
+        conceptFit:{ "fine-dining":95,"casual-dining":60,"fast-food":10,"deli":20,"cafe":40,"food-truck":5,"bakery-patisserie":0 }},
+      {id:12, name:"Grilled Salmon",  desc:"Lemon butter",       price:28,cat:"main",
+        conceptFit:{ "fine-dining":90,"casual-dining":85,"fast-food":20,"deli":50,"cafe":50,"food-truck":10,"bakery-patisserie":0 }},
+      {id:13, name:"Beef Steak",      desc:"12oz ribeye",        price:32,cat:"main",
+        conceptFit:{ "fine-dining":90,"casual-dining":70,"fast-food":15,"deli":30,"cafe":40,"food-truck":10,"bakery-patisserie":0 }},
+      {id:14, name:"Chicken Curry",   desc:"Spicy coconut",      price:20,cat:"main",
+        conceptFit:{ "fine-dining":60,"casual-dining":90,"fast-food":50,"deli":40,"cafe":60,"food-truck":70,"bakery-patisserie":0 }},
+      {id:15, name:"Pad Thai",        desc:"Rice noodles",       price:18,cat:"main",
+        conceptFit:{ "fine-dining":60,"casual-dining":90,"fast-food":80,"deli":30,"cafe":60,"food-truck":95,"bakery-patisserie":0 }},
+      {id:16, name:"Veggie Bowl",     desc:"Quinoa & veg",       price:17,cat:"main",
+        conceptFit:{ "fine-dining":70,"casual-dining":85,"fast-food":60,"deli":80,"cafe":90,"food-truck":75,"bakery-patisserie":20 }},
+      {id:17, name:"Burger Deluxe",   desc:"Cheese & bacon",     price:16,cat:"main",
+        conceptFit:{ "fine-dining":15,"casual-dining":95,"fast-food":95,"deli":60,"cafe":70,"food-truck":95,"bakery-patisserie":0 }},
+      {id:18, name:"Fish & Chips",    desc:"Cod & fries",        price:19,cat:"main",
+        conceptFit:{ "fine-dining":35,"casual-dining":90,"fast-food":90,"deli":40,"cafe":60,"food-truck":90,"bakery-patisserie":0 }},
+      {id:19, name:"Lasagna",         desc:"Beef & cheese",      price:22,cat:"main",
+        conceptFit:{ "fine-dining":70,"casual-dining":90,"fast-food":40,"deli":50,"cafe":75,"food-truck":30,"bakery-patisserie":0 }},
+      {id:20, name:"Taco Trio",       desc:"Beef, chicken, veg", price:15,cat:"main",
+        conceptFit:{ "fine-dining":25,"casual-dining":95,"fast-food":95,"deli":40,"cafe":60,"food-truck":98,"bakery-patisserie":0 }},
+
+      // desserts (10)
+      {id:21, name:"Tiramisu",        desc:"Cream & coffee",     price:12,cat:"dessert",
+        conceptFit:{ "fine-dining":85,"casual-dining":90,"fast-food":40,"deli":70,"cafe":90,"food-truck":30,"bakery-patisserie":80 }},
+      {id:22, name:"Cheesecake",      desc:"NY style",          price:10,cat:"dessert",
+        conceptFit:{ "fine-dining":75,"casual-dining":85,"fast-food":50,"deli":80,"cafe":90,"food-truck":40,"bakery-patisserie":85 }},
+      {id:23, name:"Chocolate Cake",  desc:"Rich fudge",         price:10,cat:"dessert",
+        conceptFit:{ "fine-dining":85,"casual-dining":90,"fast-food":50,"deli":60,"cafe":80,"food-truck":40,"bakery-patisserie":75 }},
+      {id:24, name:"Gelato Trio",     desc:"3 flavors",         price:9, cat:"dessert",
+        conceptFit:{ "fine-dining":60,"casual-dining":80,"fast-food":30,"deli":50,"cafe":95,"food-truck":70,"bakery-patisserie":90 }},
+      {id:25, name:"Crème Brûlée",    desc:"Caramelized top",    price:12,cat:"dessert",
+        conceptFit:{ "fine-dining":95,"casual-dining":75,"fast-food":20,"deli":50,"cafe":80,"food-truck":10,"bakery-patisserie":70 }},
+      {id:26, name:"Apple Pie",       desc:"Warm slice",        price:8, cat:"dessert",
+        conceptFit:{ "fine-dining":60,"casual-dining":85,"fast-food":40,"deli":70,"cafe":85,"food-truck":50,"bakery-patisserie":80 }},
+      {id:27, name:"Brownie Sundae",  desc:"Ice cream",         price:11,cat:"dessert",
+        conceptFit:{ "fine-dining":50,"casual-dining":85,"fast-food":70,"deli":50,"cafe":80,"food-truck":60,"bakery-patisserie":60 }},
+      {id:28, name:"Fruit Tart",      desc:"Seasonal fruits",   price:9, cat:"dessert",
+        conceptFit:{ "fine-dining":75,"casual-dining":80,"fast-food":30,"deli":70,"cafe":85,"food-truck":20,"bakery-patisserie":95 }},
+      {id:29, name:"Mousse",          desc:"Chocolate/vanilla", price:10,cat:"dessert",
+        conceptFit:{ "fine-dining":80,"casual-dining":75,"fast-food":20,"deli":60,"cafe":75,"food-truck":10,"bakery-patisserie":70 }},
+      {id:30, name:"Donut & Coffee",  desc:"Flavor of day",     price:7, cat:"dessert",
+        conceptFit:{ "fine-dining":10,"casual-dining":70,"fast-food":85,"deli":40,"cafe":95,"food-truck":75,"bakery-patisserie":100 }},
+
+      // drinks (10)
+      {id:31, name:"Espresso",        desc:"Strong shot",       price:3, cat:"drink",
+        conceptFit:{ "fine-dining":80,"casual-dining":90,"fast-food":60,"deli":85,"cafe":100,"food-truck":70,"bakery-patisserie":95 }},
+      {id:32, name:"Latte",           desc:"Espresso & milk",   price:4, cat:"drink",
+        conceptFit:{ "fine-dining":75,"casual-dining":85,"fast-food":65,"deli":80,"cafe":100,"food-truck":65,"bakery-patisserie":95 }},
+      {id:33, name:"Iced Tea",        desc:"Sweet/unsweet",     price:3, cat:"drink",
+        conceptFit:{ "fine-dining":40,"casual-dining":80,"fast-food":90,"deli":85,"cafe":85,"food-truck":90,"bakery-patisserie":70 }},
+      {id:34, name:"Soda",            desc:"Cola, sprite",      price:2.5,cat:"drink",
+        conceptFit:{ "fine-dining":10,"casual-dining":85,"fast-food":100,"deli":80,"cafe":70,"food-truck":95,"bakery-patisserie":50 }},
+      {id:35, name:"Beer Pint",       desc:"Local IPA",        price:6, cat:"drink",
+        conceptFit:{ "fine-dining":40,"casual-dining":90,"fast-food":50,"deli":60,"cafe":70,"food-truck":80,"bakery-patisserie":20 }},
+      {id:36, name:"House Wine",      desc:"Red/White",        price:7, cat:"drink",
+        conceptFit:{ "fine-dining":85,"casual-dining":85,"fast-food":10,"deli":50,"cafe":75,"food-truck":20,"bakery-patisserie":30 }},
+      {id:37, name:"Smoothie",        desc:"Berry blend",      price:5, cat:"drink",
+        conceptFit:{ "fine-dining":10,"casual-dining":70,"fast-food":75,"deli":60,"cafe":90,"food-truck":85,"bakery-patisserie":50 }},
+      {id:38, name:"Cocktail",        desc:"Bartender’s choice",price:10,cat:"drink",
+        conceptFit:{ "fine-dining":85,"casual-dining":80,"fast-food":30,"deli":40,"cafe":70,"food-truck":70,"bakery-patisserie":10 }},
+      {id:39, name:"Juice",           desc:"Fresh squeezed",   price:4, cat:"drink",
+        conceptFit:{ "fine-dining":60,"casual-dining":80,"fast-food":70,"deli":85,"cafe":95,"food-truck":75,"bakery-patisserie":80 }},
+      {id:40, name:"Water",           desc:"Sparkling/still",  price:3, cat:"drink",
+        conceptFit:{ "fine-dining":90,"casual-dining":80,"fast-food":50,"deli":70,"cafe":85,"food-truck":60,"bakery-patisserie":70 }},
+
+      // other (10)
+      {id:41, name:"Fries",           desc:"Crispy golden",    price:5, cat:"other",
+        conceptFit:{ "fine-dining":20,"casual-dining":95,"fast-food":95,"deli":50,"cafe":70,"food-truck":95,"bakery-patisserie":5 }},
+      {id:42, name:"Side Salad",      desc:"Mixed greens",     price:6, cat:"other",
+        conceptFit:{ "fine-dining":70,"casual-dining":85,"fast-food":60,"deli":80,"cafe":80,"food-truck":50,"bakery-patisserie":20 }},
+      {id:43, name:"Garlic Bread",    desc:"Butter & herbs",   price:6, cat:"other",
+        conceptFit:{ "fine-dining":40,"casual-dining":85,"fast-food":70,"deli":60,"cafe":70,"food-truck":75,"bakery-patisserie":30 }},
+      {id:44, name:"Coleslaw",        desc:"Creamy slaw",      price:4, cat:"other",
+        conceptFit:{ "fine-dining":5,"casual-dining":75,"fast-food":80,"deli":70,"cafe":50,"food-truck":80,"bakery-patisserie":5 }},
+      {id:45, name:"Pretzel",         desc:"Soft salted",      price:5, cat:"other",
+        conceptFit:{ "fine-dining":5,"casual-dining":60,"fast-food":70,"deli":50,"cafe":70,"food-truck":85,"bakery-patisserie":60 }},
+      {id:46, name:"Rice Pilaf",      desc:"Seasoned rice",    price:5, cat:"other",
+        conceptFit:{ "fine-dining":60,"casual-dining":85,"fast-food":50,"deli":75,"cafe":75,"food-truck":40,"bakery-patisserie":10 }},
+      {id:47, name:"Steamed Veg",     desc:"Seasonal veg",     price:6, cat:"other",
+        conceptFit:{ "fine-dining":75,"casual-dining":80,"fast-food":40,"deli":75,"cafe":75,"food-truck":30,"bakery-patisserie":20 }},
+      {id:48, name:"Mac & Cheese",    desc:"Creamy pasta",     price:7, cat:"other",
+        conceptFit:{ "fine-dining":20,"casual-dining":90,"fast-food":95,"deli":60,"cafe":75,"food-truck":90,"bakery-patisserie":10 }},
+      {id:49, name:"Onion Rings",     desc:"Beer-battered",    price:6, cat:"other",
+        conceptFit:{ "fine-dining":5,"casual-dining":80,"fast-food":90,"deli":40,"cafe":60,"food-truck":85,"bakery-patisserie":0 }},
+      {id:50, name:"Brussels Sprouts",desc:"Roasted",         price:7, cat:"other",
+        conceptFit:{ "fine-dining":85,"casual-dining":75,"fast-food":10,"deli":20,"cafe":40,"food-truck":5,"bakery-patisserie":0 }}
+    ];
+
+    const LIMIT=10;
+    let selected=[];
+
+    // שליפה מה־DOM
+    const tabs   = document.querySelectorAll('.tab-btn');
+    const count  = document.getElementById('count');
+    const btnNext = document.getElementById('toPreview');
+    const menuList = document.getElementById('menuList');
+    const feedback = document.getElementById('menuFeedback');
+
+    // ניווט בין הטאבים
+    tabs.forEach(b=>{
+      b.onclick=()=>{
+        tabs.forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+        b.classList.add('active');
+        document.getElementById(b.dataset.tab).classList.add('active');
+      };
+    });
+
+    // יצירת כרטיסי מנות
+    function render() {
+      selected=[];
+      count.textContent=0;
+      btnNext.disabled=true;
+      ['appetizer','main','dessert','drink','other'].forEach(cat=>{
+        const cont=document.getElementById(cat);
+        cont.innerHTML='';
+        allDishes.filter(d=>d.cat===cat).forEach(d=>{
+          const cd=document.createElement('div');
+          cd.className='dish-card';
+          cd.innerHTML=`<strong>${d.name}</strong><br><small>${d.desc}</small><br>$${d.price}`;
+          cd.onclick=()=>{
+            if(cd.classList.contains('selected')){
+              cd.classList.remove('selected');
+              selected=selected.filter(x=>x.id!==d.id);
+            } else if(selected.length<LIMIT){
+              cd.classList.add('selected');
+              selected.push(d);
+            }
+            count.textContent=selected.length;
+            btnNext.disabled = selected.length!==LIMIT;
+          };
+          cont.appendChild(cd);
+        });
+      });
+    }
+
+    // כפתורים
+    document.getElementById('toDishes').onclick=()=>{
+      render();
+      document.querySelector('[data-tab=tab2]').click();
+    };
+    document.getElementById('backToConcept').onclick=()=>{
+      document.querySelector('[data-tab=tab1]').click();
+    };
+    btnNext.onclick=()=>{
+      document.querySelector('[data-tab=tab3]').click();
+      // חישוב Match %
+      const biz = document.getElementById('businessConcept').value;
+      let sum=0;
+      selected.forEach(d=> sum+= (d.conceptFit[biz]||50) );
+      const pct = Math.round(sum/selected.length);
+      // הצגה
+      menuList.innerHTML='';
+      selected.forEach(d=>{
+        const div=document.createElement('div');
+        div.textContent=`${d.name} — $${d.price}`;
+        menuList.appendChild(div);
+      });
+      feedback.textContent=`Concept Alignment: ${pct}%`;
+      feedback.classList.toggle('warning', pct<60);
+    };
+    document.getElementById('backToDishes').onclick=()=>{
+      document.querySelector('[data-tab=tab2]').click();
+    };
+    document.getElementById('startOver').onclick=()=>location.reload();
+
+  </script>
 </body>
 </html>
