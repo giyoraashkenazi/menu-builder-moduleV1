@@ -1,37 +1,137 @@
-/* איפוס מרווחים בסיסי */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --brand-blue:   #0052cc;
+  --brand-light:  #4dabf7;
+  --brand-gray:   #6c757d;
+  --brand-white:  #ffffff;
+  --brand-black:  #000000;
+  --brand-bg:     #e0f7fa; /* רקע כללי */
+  --card-bg:      #f0f7fa; /* רקע פנלים */
 }
 
-/* גופן וערכת צבעים */
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #111827;
-  color: #f3f4f6;
-  line-height: 1.6;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: var(--brand-bg);
+  color: var(--brand-black);
 }
 
-/* דוגמה לסגנון כותרת */
 h1, h2, h3 {
-  color: #8b5cf6;
-  margin-bottom: 0.5em;
+  margin: .5em 0;
 }
 
-/* סגנון כללי לכפתורים */
-button {
-  font-family: inherit;
-  padding: 0.6em 1.2em;
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px 0;
   border: none;
-  border-radius: 0.5em;
+  background: var(--brand-light);
+  color: var(--brand-black);
   cursor: pointer;
-  background-color: #6d28d9;
-  color: white;
-  transition: background-color 0.3s;
-}
-button:hover {
-  background-color: #8b5cf6;
+  font-weight: bold;
+  border-bottom: 4px solid transparent;
+  border-radius: 4px 4px 0 0;
+  transition: background .2s;
 }
 
-/* קישור ל־index.html */
+.tabs button:hover:not(.active) {
+  background: #a6d8ff;
+}
+
+.tabs button.active {
+  background: var(--brand-blue);
+  color: var(--brand-white);
+  border-bottom-color: var(--brand-blue);
+}
+
+.tab-content {
+  display: none;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 0 4px 4px 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-top: -4px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.nav {
+  margin-top: 20px;
+}
+
+.nav button {
+  padding: 10px 16px;
+  background: var(--brand-blue);
+  color: var(--brand-white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background .2s;
+}
+
+.nav button:hover:not(:disabled) {
+  background: #003a99;
+}
+
+.nav button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.dishes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.dish-card {
+  flex: 0 0 140px;
+  background: var(--brand-white);
+  border: 1px solid var(--brand-gray);
+  border-radius: 4px;
+  padding: 12px;
+  cursor: pointer;
+  transition: transform .1s, box-shadow .1s, background .2s, border-color .2s;
+}
+
+.dish-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dish-card.selected {
+  border-color: var(--brand-blue);
+  background: var(--brand-light);
+}
+
+.feedback {
+  margin-top: 20px;
+  padding: 12px;
+  border-left: 4px solid var(--brand-blue);
+  background: var(--brand-light);
+  color: var(--brand-black);
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background .2s, border-color .2s;
+}
+
+.feedback.warning {
+  border-color: #dc3545;
+  background: #fff0f0;
+}
